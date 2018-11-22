@@ -11,17 +11,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 /**
- * Created by shondad on 20/11/18.
+ * Created by shondad on 21/11/18.
  */
 
-enum HibernateSessionFactory
+public enum HibernateSessionFactory
 {
     INSTANCE;
 
     static SessionFactory sessionFactoryObj;
 
     // This Method Is Used To Create The Hibernate's SessionFactory Object
-    protected static SessionFactory getSessionFactory() {
+     public static SessionFactory getSessionFactory() {
 
         // Creating Configuration Instance & Passing Hibernate Configuration File
         Configuration configObj = new Configuration();
