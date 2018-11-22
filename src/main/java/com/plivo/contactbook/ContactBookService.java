@@ -181,7 +181,31 @@ public class ContactBookService {
 		return contactList;
 	}
 
+	/**
+	 * '/plivo/contactbook/deleteuser' url used to delete user to user table
+	 * returns response 200 OK on success.
+	 * @param emailId
+	 * @return
+	 */
+	@DELETE
+	@Path("/deletecontact")
+	public Response deleteContact(@QueryParam("emailId") String emailId) {
 
+		if(sessionFactory==null) {
+			sessionFactory = HibernateSessionFactory.getSessionFactory();
+		}
+
+		List<Contacts> contactsList=executeQueryForContacts("emailId",emailId);
+
+		if(contactsList.get(0)!=null) {
+			deleteEntry(contactsList.get(0));
+			return Response.status(200).entity("Successful").build();
+		}
+		else
+		{
+			return Response.status(204).entity("Contact Not Found").build();
+		}
+	}
 	/**
 	 * Gets page number and returns list of contacts
 	 * if page is 1 return 0 to 9 contacts
@@ -380,6 +404,22 @@ public class ContactBookService {
 		sessionObj.beginTransaction();
 
 		sessionObj.saveOrUpdate(addObject);
+		sessionObj.getTransaction().commit();
+		sessionObj.close();
+	}
+
+	/**
+	 * This method delete object in DB
+	 * @param addObject
+	 */
+	private void deleteEntry(Object addObject) {
+		// Getting Session Object From SessionFactory
+		Session sessionObj = sessionFactory.openSession();
+
+		// Getting Transaction Object From Session Object
+		sessionObj.beginTransaction();
+
+		sessionObj.delete(addObject);
 		sessionObj.getTransaction().commit();
 		sessionObj.close();
 	}
