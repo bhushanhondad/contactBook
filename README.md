@@ -1,4 +1,4 @@
-# contactBook
+# Contact-Book
 
 Developed a CRUD based APIs for a contact book app.
 
@@ -14,6 +14,6 @@ Developed a CRUD based APIs for a contact book app.
 - Add basic authentication for the app userName and password is take as header as plain text and vailidate with DB
 
 
- Language Used: Java
- DB Used: Mysql
- ORM Used: Hibernate
+ - Language Used: Java
+ - DB Used: Mysql
+ - ORM Used: Hibernate
