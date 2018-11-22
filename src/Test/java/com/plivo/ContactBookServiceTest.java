@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by shondad on 22/11/18.
  */
-public class ContactBookServiceTestTest {
+public class ContactBookServiceTest {
 
     static ContactBookService contactBookService = new ContactBookService();
     SessionFactory sessionFactory =null;
@@ -204,6 +204,22 @@ public class ContactBookServiceTestTest {
         assertEquals("Invalid Response, should have been 1 record",contactList.getContactsList().size(),10);
     }
 
+    /**
+     * Delete contact.
+     * @throws Exception
+     */
+    @Test
+    public void testDeleteContacts() throws Exception {
+        createContact("test@test.com","testUser123","demouser");
+
+        Response response = contactBookService.addContact(validContacts,null,null);
+
+        if(response.getStatus()==200)
+        {
+            response = contactBookService.deleteContact(validContacts.getEmailId());
+        }
+        assertEquals("Invalid Response, should have been 200",response.getStatus(),200);
+    }
 
     private void createContact(String emailId,String userName,String belongsToUser) {
         validContacts = new Contacts();
